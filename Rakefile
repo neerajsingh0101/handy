@@ -1,17 +1,28 @@
 require 'rubygems'
-require 'rake'
+require 'rake/testtask'
+
+desc 'Default: run unit tests.'
+task :default => :test
+
+desc 'Test handy gem.'
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib' << 'test'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = true
+end
 
 begin
   require 'jeweler'
+  require './lib/handy/version'
   Jeweler::Tasks.new do |gem|
     gem.name = "handy"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.version = Handy::VERSION
+    gem.summary = %Q{handy tools}
+    gem.description = %Q{handy tools that gets job done}
     gem.email = "neerajdotname@gmail.com"
     gem.homepage = "http://github.com/neerajdotname/handy"
     gem.authors = ["Neeraj Singh"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.files = FileList["[A-Z]*", "{lib,test}/**/*", 'init.rb']
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
