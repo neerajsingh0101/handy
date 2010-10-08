@@ -61,7 +61,7 @@ namespace :handy do
       cmd = "#{util.mysql_command} < #{restore_file.gsub('.gz','')}"
 
       Util.execute_cmd(cmd)
-      puts "database has been restored"
+      Util.pretty_msg "database has been restored"
     end
 
     desc "bakup database to a file"
