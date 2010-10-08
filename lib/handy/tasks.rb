@@ -81,8 +81,7 @@ namespace :handy do
     task :db2db => :environment  do
       puts "Usage: handy:db:db2db from_env=production to_env=staging"
       from_env = ENV['from_env'] || 'production'
-      to_env = ENV['to_env']
-      raise "to_env is not specified. Check Usage" if to_env.blank?
+      to_env = ENV['to_env'] || 'staging'
       file_name = "#{Rails.root}/tmp/#{from_env}.data"
       config_file =  "#{Rails.root}/config/database.yml"
 
