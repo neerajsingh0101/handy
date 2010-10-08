@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Neeraj Singh"]
-  s.date = %q{2010-10-07}
+  s.date = %q{2010-10-08}
   s.description = %q{handy tools that gets job done}
   s.email = %q{neerajdotname@gmail.com}
   s.extra_rdoc_files = [
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "lib/handy.rb",
      "lib/handy/railtie.rb",
+     "lib/handy/recipe.rb",
      "lib/handy/tasks.rb",
      "lib/handy/version.rb",
      "test/helper.rb",
