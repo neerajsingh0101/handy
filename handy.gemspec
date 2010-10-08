@@ -5,23 +5,24 @@
 
 Gem::Specification.new do |s|
   s.name = %q{handy}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Neeraj Singh"]
-  s.date = %q{2010-10-01}
+  s.date = %q{2010-10-07}
   s.description = %q{handy tools that gets job done}
   s.email = %q{neerajdotname@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.rdoc"
+     "README.md"
   ]
   s.files = [
     "LICENSE",
-     "README.rdoc",
+     "README.md",
      "Rakefile",
      "lib/handy.rb",
      "lib/handy/railtie.rb",
+     "lib/handy/tasks.rb",
      "lib/handy/version.rb",
      "test/helper.rb",
      "test/test_handy.rb"
