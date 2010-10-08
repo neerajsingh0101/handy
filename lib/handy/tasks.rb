@@ -81,16 +81,21 @@ namespace :handy do
 
       FileUtils.mkdir_p(backup_dir) unless File.exists?(backup_dir) && File.directory?(backup_dir)
 
-      database, user, password = Util.retrieve_db_info("#{Rails.root}/config/database.yml", Rails.env)
-      cmd = "mysqldump --opt --skip-add-locks -u#{user} -p#{password} #{database} >> #{file_name}"
+      util = Util.retrieve_db_info("#{Rails.root}/config/database.yml", Rails.env)
+      cmd = util.mysqldump_command
+      cmd << " --opt --skip-add-locks #{util.database} >> #{file_name}"
+      #cmd = "mysqldump --opt --skip-add-locks -u#{user} -p#{password} #{database} >> #{file_name}"
       Util.execute_cmd(cmd)
 
       #-c --stdout write on standard output, keep original files unchanged
       #-q  quite
       #-9 best compression
-      sh "gzip -q9 #{file_name}"
-      sh "mv #{file_name}.gz  #{backup_file}"
-      puts "Backup done at #{File.expand_path(backup_file)}"
+      #sh "gzip -q9 #{file_name}"
+      Util.execute_cmd "gzip -q9 #{file_name}"
+      #sh "mv #{file_name}.gz  #{backup_file}"
+      Util.execute_cmd "mv #{file_name}.gz  #{backup_file}"
+      
+      Util.pretty_msg "Backup done at #{File.expand_path(backup_file)}"
 
     end
 
