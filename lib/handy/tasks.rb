@@ -6,17 +6,37 @@ class Util
 
   def self.retrieve_db_info(database_yml_file, env)
     config = YAML.load_file(database_yml_file)
-    [ config[env]['database'], config[env]['user'], config[env]['password'] ]
+    self.new(config[env]['username'], config[env]['password'], config[env]['database'])
   end
 
   def mysql_command
-    password.blank? ? "mysql -u #{user} #{database}" : "mysql -u #{user}  -p'#{password}' #{database}"
+    a = ['mysql']
+    a << "-u #{username}"
+    a << "-p'#{password}'" unless password.blank?
+    a << database
+    a.join(' ')
+  end
+
+  def mysqldump_command
+    a = ['mysqldump']
+    a << "-u #{username}"
+    a << "-p'#{password}'" unless password.blank?
+    a.join(' ')
   end
 
   def self.execute_cmd(cmd)
-    puts cmd
+    puts "executing: #{cmd}"
     system cmd
   end
+
+  def self.pretty_msg(msg)
+    puts ''
+    puts '*'*100
+    puts ('*' << ' '*5 << msg)
+    puts '*'*100
+    puts ''
+  end
+
 end
 
 namespace :handy do
@@ -30,9 +50,7 @@ namespace :handy do
       restore_file = File.join(Rails.root, 'tmp', file_name)
       raise "file was not found" unless File.exists?(restore_file)
 
-      db_info = Util.retrieve_db_info("#{Rails.root}/config/database.yml", Rails.env)
-      database, user, password = db_info
-      util = Util.new(db_info)
+      util = Util.retrieve_db_info("#{Rails.root}/config/database.yml", Rails.env)
 
       if restore_file =~ /\.gz/
         puts "decompressing backup"
@@ -85,26 +103,18 @@ namespace :handy do
       file_name = "#{Rails.root}/tmp/#{from_env}.data"
       config_file =  "#{Rails.root}/config/database.yml"
 
-      db_config = YAML.load_file(config_file)
-
-      from_user = db_config[from_env]['username']
-      from_password = db_config[from_env]['password']
-      from_database =  db_config[from_env]['database']
       from_params = "-Q --add-drop-table -O add-locks=FALSE -O lock-tables=FALSE"
+      util = Util.retrieve_db_info("#{Rails.root}/config/database.yml", from_env)
+      cmd = util.mysqldump_command
+      cmd << " #{from_params} #{util.database} > #{file_name} "
+      Util.execute_cmd(cmd)
 
-      cmd = "mysqldump -u #{from_user} -p#{from_password} #{from_params} #{from_database} > #{file_name} "
-      puts cmd
-      system cmd
+      util2 = Util.retrieve_db_info("#{Rails.root}/config/database.yml", to_env)
+      cmd = util.mysql_command
+      cmd << " < #{file_name}"
+      Util.execute_cmd(cmd)
 
-      to_username = db_config[to_env]['username']
-      to_password = db_config[to_env]['password']
-      to_database =  db_config[to_env]['database']
-
-      cmd = "mysql -u #{to_username} -p#{to_password} #{to_database} < #{file_name}"
-      puts cmd
-      system cmd
-
-      puts "#{to_env} database has been restored with #{from_env} database"
+      Util.pretty_msg "#{to_env} database has been restored with #{from_env} database"
     end
 
   end
