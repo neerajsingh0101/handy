@@ -8,6 +8,7 @@ namespace :handy do
       raise "file was not supplied. Check Usage." unless file_name
       file = File.join(Rails.root, 'tmp', file_name)
       raise "file was not found" unless File.exists?(file)
+
       Handy::Restore.run(file, Rails.env)
     end
 
@@ -34,21 +35,9 @@ namespace :handy do
       puts "Usage: handy:db:db2db from_env=production to_env=staging"
       from_env = ENV['from_env'] || 'production'
       to_env = ENV['to_env'] || 'staging'
-      file_name = "#{Rails.root}/tmp/#{from_env}.data"
-      config_file =  "#{Rails.root}/config/database.yml"
+      file = "#{Rails.root}/tmp/#{from_env}.data"
 
-      from_params = "-Q --add-drop-table -O add-locks=FALSE -O lock-tables=FALSE"
-      util = Util.retrieve_db_info("#{Rails.root}/config/database.yml", from_env)
-      cmd = util.mysqldump_command
-      cmd << " #{from_params} #{util.database} > #{file_name} "
-      Util.execute_cmd(cmd)
-
-      util2 = Util.retrieve_db_info("#{Rails.root}/config/database.yml", to_env)
-      cmd = util.mysql_command
-      cmd << " < #{file_name}"
-      Util.execute_cmd(cmd)
-
-      Util.pretty_msg "#{to_env} database has been restored with #{from_env} database"
+      Handy::Db2db.run(from_env, to_env, file)
     end
 
   end
