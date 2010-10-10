@@ -19,7 +19,6 @@ namespace :handy do
     Files are backed at Rails.root/../../shared/db_backups on the remote server
     DESC
     task :backup => [:environment] do
-
       timestamp = ENV['timestamp'] || Time.zone.now.strftime("%Y-%m-%d-%H-%M-%S")
       file = "#{timestamp}.sql"
       backup_dir = File.join (Rails.root, 'tmp')
