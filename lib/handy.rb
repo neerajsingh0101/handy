@@ -52,7 +52,7 @@ module Handy
         raise("backup decompression failed. msg: #{$?}" ) unless result
       end
 
-      cmd = "#{util.mysql_command} < #{restore_file.gsub('.gz','')}"
+      cmd = "#{util.mysql_command} < #{file.gsub('.gz','')}"
 
       Util.execute_cmd(cmd)
       Util.pretty_msg "database has been restored"
