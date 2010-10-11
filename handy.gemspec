@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Neeraj Singh"]
-  s.date = %q{2010-10-08}
+  s.date = %q{2010-10-11}
   s.description = %q{handy tools that gets job done}
   s.email = %q{neerajdotname@gmail.com}
   s.extra_rdoc_files = [
@@ -21,9 +21,14 @@ Gem::Specification.new do |s|
      "README.md",
      "Rakefile",
      "lib/handy.rb",
+     "lib/handy/backup.rb",
+     "lib/handy/db2db.rb",
+     "lib/handy/dump2s3.rb",
      "lib/handy/railtie.rb",
-     "lib/handy/recipe.rb",
+     "lib/handy/restore.rb",
+     "lib/handy/s3.rb",
      "lib/handy/tasks.rb",
+     "lib/handy/util.rb",
      "lib/handy/version.rb",
      "test/helper.rb",
      "test/test_handy.rb"
@@ -43,9 +48,15 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<aws>, [">= 2.3.21"])
+      s.add_runtime_dependency(%q<capistrano>, [">= 2.5.19"])
     else
+      s.add_dependency(%q<aws>, [">= 2.3.21"])
+      s.add_dependency(%q<capistrano>, [">= 2.5.19"])
     end
   else
+    s.add_dependency(%q<aws>, [">= 2.3.21"])
+    s.add_dependency(%q<capistrano>, [">= 2.5.19"])
   end
 end
 

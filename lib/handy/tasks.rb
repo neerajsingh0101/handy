@@ -39,5 +39,15 @@ namespace :handy do
       Handy::Db2db.run(from_env, to_env, file)
     end
 
+    desc "Copy database dump to s3"
+    task :dump2s3 => :environment  do
+      timestamp = Time.zone.now.strftime("%Y-%m-%d-%H-%M-%S")
+      file = "#{timestamp}.sql.gz"
+      ENV['file'] = file
+      Rake::Task["handy:db:backup"].invoke
+
+      Handy::Dump2s3.run(Rails.env, file)
+    end
+
   end
 end
