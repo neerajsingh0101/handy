@@ -21,10 +21,6 @@ module Handy
       end
     end
 
-    def list
-      @bucket_instance.keys
-    end
-
     def store(file_name, file_data)
       @bucket_instance.put(file_name, file_data)
     end
@@ -65,8 +61,8 @@ module Handy
 
     def self.list(env)
       s3 = Handy::S3.new(Rails.env)
-      Handy::Util.pretty_msg("List of files on s3")
-      s3.list.each {|e| puts e}
+      Handy::Util.pretty_msg("List of files on s3 for bucket #{s3.bucket_name}")
+      s3.bucket_instance.keys.each {|e| puts e}
     end
 
     def self.restore(env, file_name)
