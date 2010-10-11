@@ -1,4 +1,4 @@
-# handy provides follwing tools
+# A Rails3 compliant gem which provides followings rake tasks#
 
 ##rake handy:db:backup##
 Creates a dump of data and structure which can been safely backed up
@@ -7,7 +7,7 @@ Creates a dump of data and structure which can been safely backed up
 restores the data and structure from file 
 
 ##rake handy:db:db2db##
-restores the data from production database to staging database
+Restores the data from production database to staging database. More options can be specified.
  
 ##rake handy:db:dump2s3##
 Creates a backup and then stores that backup on s3
