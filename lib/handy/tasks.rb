@@ -49,5 +49,22 @@ namespace :handy do
       Handy::Dump2s3.run(Rails.env, file)
     end
 
+    namespace :dump2s3 do
+
+      desc "list all files stored at s3"
+      task :list => :environment  do
+        Handy::Dump2s3.list(Rails.env)
+      end
+
+      desc "restore data from s3"
+      task :restore => :environment  do
+        file = ENV['file']
+        raise "No file was specified. Usage: rake handy:db:dump2s3:restore file=xxxx" if file.blank?
+        Handy::Dump2s3.restore(Rails.env, file)
+        Rake::Task["handy:db:restore"].invoke
+      end
+
+    end
+
   end
 end
