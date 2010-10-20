@@ -8,6 +8,8 @@ namespace :handy do
       raise "file was not supplied. Check Usage." unless file_name
       file = File.join(Rails.root, 'tmp', file_name)
       raise "file was not found" unless File.exists?(file)
+      Rake::Task["db:drop"].invoke
+      Rake::Task["db:create"].invoke
 
       Handy::Restore.run(file, Rails.env)
     end
