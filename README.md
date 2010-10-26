@@ -10,7 +10,9 @@ restores the data and structure from file
 Restores the data from production database to staging database. More options can be specified.
  
 ##rake handy:db:dump2s3##
-Creates a backup and then stores that backup on s3. s3 login information can be passed as per http://gist.github.com/619432 .
+Creates a backup and then stores that backup on s3. 
+
+s3 login information can be passed as per [http://gist.github.com/619432](http://github.com/neerajdotname/handy) .
 
 ##rake handy:db:dump2s3:list##
 Prints a list of all files stored on s3.
