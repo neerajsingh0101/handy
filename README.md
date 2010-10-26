@@ -16,7 +16,7 @@ Creates a backup and then stores that backup on s3. s3 login information can be 
 Prints a list of all files stored on s3.
 
 ##rake handy:db:dump2s3:restore file=xxxx.sql.gz##
-Restores the database with the data from s3. 
+Restores the database with the data from s3. Sweet!! 
 
 
 Copyright (c) 2010 Neeraj Singh. See LICENSE for details.
