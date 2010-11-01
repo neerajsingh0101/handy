@@ -4,14 +4,9 @@ module Handy
     attr_accessor :bucket_name, :access_key_id, :secret_access_key, :bucket_instance
 
     def initialize(env)
-      file = Rails.root.join('config', 'amazon_s3.yml')
-      unless File.exists?(file)
-        raise "file config/amazon_s3.yml was not found. Create a file as per http://gist.github.com/619432"
-      end
-      config = YAML.load_file(file)
-      @bucket_name = config[env]['bucket_name']
-      @access_key_id = config[env]['access_key_id']
-      @secret_access_key = config[env]['secret_access_key']
+      @bucket_name = $bucket_name
+      @access_key_id = $access_key_id
+      @secret_access_key = $secret_access_key
       @s3_instance = Aws::S3.new(access_key_id, secret_access_key)
       @bucket_instance = Aws::S3::Bucket.create(@s3_instance, bucket_name)
       begin
