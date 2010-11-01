@@ -5,6 +5,7 @@ namespace :handy do
       puts "Usage: rake handy:web:ping site=www.xxx.com"
       site = ENV['site']
       cmd = "curl http://#{site}> /dev/null 2>&1 &"
+      puts cmd
       system(cmd)
     end
   end
