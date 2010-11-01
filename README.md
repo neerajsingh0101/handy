@@ -14,11 +14,14 @@ Creates a backup and then stores that backup on s3.
 
 s3 login information can be passed as per [http://gist.github.com/619432](http://github.com/neerajdotname/handy) .
 
+
 ##rake handy:db:dump2s3:list##
 Prints a list of all files stored on s3.
 
 ##rake handy:db:dump2s3:restore file=xxxx.sql.gz##
 Restores the database with the data from s3. Sweet!! 
 
+##rake handy:web:ping site=www.page41.com##
+Pings a site. 
 
 Copyright (c) 2010 Neeraj Singh. See LICENSE for details.

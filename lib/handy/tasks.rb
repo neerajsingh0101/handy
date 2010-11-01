@@ -1,4 +1,14 @@
 namespace :handy do
+  namespace :web do
+    desc "Ping a site"
+    task :ping => :environment do
+      puts "Usage: rake handy:web:ping site=www.xxx.com"
+      site = ENV['site']
+      cmd = "curl http://#{site}> /dev/null 2>&1 &"
+      system(cmd)
+    end
+  end
+
   namespace :db do
 
     desc "Load schema and data from a local sql file."
