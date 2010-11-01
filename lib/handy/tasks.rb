@@ -94,7 +94,7 @@ namespace :handy do
           Handy::Dump2s3.list(Rails.env)
         rescue => e
           HoptoadNotifier.notify(e)
-          puts e.message + e.backtrace.join('\n')
+          puts e.message.inspect + e.backtrace.join('\n')
         end
       end
 
