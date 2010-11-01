@@ -9,7 +9,7 @@ namespace :handy do
         system(cmd)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:site => site})
-        puts e.message + e.backtrace.join('\n')
+        puts e.message.inspect + e.backtrace.join('\n')
       end
     end
   end
@@ -30,7 +30,7 @@ namespace :handy do
         Handy::Restore.run(file, Rails.env)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:file => file})
-        puts e.message + e.backtrace.join('\r\n')
+        puts e.message.inspect + e.backtrace.join('\r\n')
       end
     end
 
@@ -51,7 +51,7 @@ namespace :handy do
         Handy::Backup.run(Rails.env, file, backup_file)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:file => file})
-        puts e.message + e.backtrace.join('\n')
+        puts e.message.inspect + e.backtrace.join('\n')
       end
     end
 
@@ -67,7 +67,7 @@ namespace :handy do
         Handy::Db2db.run(from_env, to_env, file)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:from_env => from_env, :to_env => to_env })
-        puts e.message + e.backtrace.join('\n')
+        puts e.message.inspect + e.backtrace.join('\n')
       end
     end
 
@@ -82,7 +82,7 @@ namespace :handy do
         Handy::Dump2s3.run(Rails.env, file)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:file => file})
-        puts e.message + e.backtrace.join('\n')
+        puts e.message.inspect + e.backtrace.join('\n')
       end
     end
 
@@ -96,10 +96,6 @@ namespace :handy do
           HoptoadNotifier.notify(e)
           a = e.message.inspect
           b = e.backtrace.join('\n')
-          puts a.inspect
-          puts b.inspect
-          puts a.class.name
-          puts b.class.name
           puts a + b
         end
       end
@@ -113,7 +109,7 @@ namespace :handy do
           Rake::Task["handy:db:restore"].invoke
         rescue => e
           HoptoadNotifier.notify(e, :parameters => {:file => file})
-          puts e.message + e.backtrace.join('\n')
+          puts e.message.inspect + e.backtrace.join('\n')
         end
       end
 
