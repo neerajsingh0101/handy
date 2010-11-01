@@ -9,6 +9,7 @@ namespace :handy do
         system(cmd)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:site => site})
+        puts e.message + e.backtrace
       end
     end
   end
@@ -29,6 +30,7 @@ namespace :handy do
         Handy::Restore.run(file, Rails.env)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:file => file})
+        puts e.message + e.backtrace
       end
     end
 
@@ -49,6 +51,7 @@ namespace :handy do
         Handy::Backup.run(Rails.env, file, backup_file)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:file => file})
+        puts e.message + e.backtrace
       end
     end
 
@@ -64,6 +67,7 @@ namespace :handy do
         Handy::Db2db.run(from_env, to_env, file)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:from_env => from_env, :to_env => to_env })
+        puts e.message + e.backtrace
       end
     end
 
@@ -78,6 +82,7 @@ namespace :handy do
         Handy::Dump2s3.run(Rails.env, file)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:file => file})
+        puts e.message + e.backtrace
       end
     end
 
@@ -89,6 +94,7 @@ namespace :handy do
           Handy::Dump2s3.list(Rails.env)
         rescue => e
           HoptoadNotifier.notify(e)
+          puts e.message + e.backtrace
         end
       end
 
@@ -101,6 +107,7 @@ namespace :handy do
           Rake::Task["handy:db:restore"].invoke
         rescue => e
           HoptoadNotifier.notify(e, :parameters => {:file => file})
+          puts e.message + e.backtrace
         end
       end
 
