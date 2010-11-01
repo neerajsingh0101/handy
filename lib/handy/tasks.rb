@@ -30,7 +30,7 @@ namespace :handy do
         Handy::Restore.run(file, Rails.env)
       rescue => e
         HoptoadNotifier.notify(e, :parameters => {:file => file})
-        puts e.message + e.backtrace.join('\n\r')
+        puts e.message + e.backtrace.join('\r\n')
       end
     end
 
