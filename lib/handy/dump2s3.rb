@@ -4,9 +4,9 @@ module Handy
     attr_accessor :bucket_name, :access_key_id, :secret_access_key, :bucket_instance
 
     def initialize(env)
-      @bucket_name = $bucket_name
-      @access_key_id = $access_key_id
-      @secret_access_key = $secret_access_key
+      @bucket_name = AppConfig.s3_bucket_name
+      @access_key_id = AppConfig.s3_access_key_id
+      @secret_access_key = AppConfig.s3_secret_access_key
       @s3_instance = Aws::S3.new(access_key_id, secret_access_key)
       @bucket_instance = Aws::S3::Bucket.create(@s3_instance, bucket_name)
       begin
