@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{handy}
-  s.version = "0.0.11"
+  s.version = "0.0.12"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Neeraj Singh"]
@@ -22,6 +22,10 @@ Gem::Specification.new do |s|
     "Rakefile",
     "lib/handy.rb",
     "lib/handy/backup.rb",
+    "lib/handy/capistrano/delayed_job.rb",
+    "lib/handy/capistrano/remote_tasks.rb",
+    "lib/handy/capistrano/restart.rb",
+    "lib/handy/capistrano/restore_local.rb",
     "lib/handy/capistrano/user_confirmation.rb",
     "lib/handy/db2db.rb",
     "lib/handy/dump2s3.rb",
