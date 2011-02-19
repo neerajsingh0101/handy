@@ -1,5 +1,4 @@
 require 'aws'
-#require 'aws/s3'
 
 require 'handy/util'
 require 'handy/backup'

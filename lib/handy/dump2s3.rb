@@ -3,11 +3,22 @@ module Handy
 
     attr_accessor :bucket_name, :access_key_id, :secret_access_key, :bucket_instance
 
+    # This module relies on following things to be present:
+    #
+    # AppConfig.s3_bucket_name
+    # AppConfig.s3_secret_access_key_id
+    # AppConfig.s3_secret_secret_access_key
+    #
     def initialize(env)
       @bucket_name = AppConfig.s3_bucket_name
       @access_key_id = AppConfig.s3_access_key_id
       @secret_access_key = AppConfig.s3_secret_access_key
       @s3_instance = Aws::S3.new(access_key_id, secret_access_key)
+
+      if @bucket_name.nil? || @access_key_id.nil? || @secret_access_key.nil?
+        raise "looks like aws/s3 credentials are not set properly"
+      end
+
       @bucket_instance = Aws::S3::Bucket.create(@s3_instance, bucket_name)
       begin
         @bucket_instance.keys
