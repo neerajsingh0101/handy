@@ -6,8 +6,8 @@ module Handy
     # This module relies on following things to be present:
     #
     # AppConfig.s3_bucket_name
-    # AppConfig.s3_secret_access_key_id
-    # AppConfig.s3_secret_secret_access_key
+    # AppConfig.s3_access_key_id
+    # AppConfig.s3_secret_access_key
     #
     def initialize(env)
       @bucket_name = AppConfig.s3_bucket_name
